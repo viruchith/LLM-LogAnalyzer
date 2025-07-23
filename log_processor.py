@@ -79,7 +79,7 @@ def is_log_critical(log_message: str) -> str:
     """
     prompt = (
         "You are a helpful assistant. Determine if the following log message is critical.\n"
-        "Return only JSON response only whether log message is 'CRITICAL' true or false along with the log message itself as 'message'.\n"
+        "Return only whether log message is 'CRITICAL' true or false along with the log message itself as 'message' attribute as a JSON response only.\n"
         f"Log message: {log_message}"
     )
 

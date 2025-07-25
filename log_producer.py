@@ -1,7 +1,7 @@
 import csv
 import pika
 import logging
-
+import time
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -11,6 +11,8 @@ logger = logging.getLogger(__name__)
 # RabbitMQ configuration
 rabbitmq_host = 'localhost'  # Change this to your RabbitMQ host if needed
 queue_name = 'q.logs'  # Name of the RabbitMQ queue to create and use
+
+delay = 0 # Delay in seconds between processing each log message
 
 def create_rabbitmq_queue():
     """
@@ -63,9 +65,10 @@ def read_csv_row_by_row(filename):
         for row in csv_reader:
             log_message = ' '.join(row)
             add_log_to_queue(log_message)
+            time.sleep(delay)
 
 if __name__ == '__main__':
     # Example usage:
-    csv_file_path = 'Ticket_Dump.csv'  # Replace with your CSV file path
+    csv_file_path = 'Linux_2k.log_structured.csv'  # Replace with your CSV file path
     create_rabbitmq_queue()
     read_csv_row_by_row(csv_file_path)
